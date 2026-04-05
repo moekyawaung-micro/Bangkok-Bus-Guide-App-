@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangkok Transport Guide - ဘန်ကောက်သယ်ယူမှုလမ်းညွှန်</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #FF8C42;
+            --accent: #FFD60A;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #3B82F6;
+            --dark: #1a1a2e;
+            --light: #f5f5f5;
+            --white: #fff;
+            --btsmain: #00A0DF;
+            --mrt: #2D9CDB;
+            --ats: #D4527D;
+            --taxi: #FFD700;
+            --uber: #000;
+        }
+
+        body {
+            font-family: 'Padauk', 'Myanmar3', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #FFF5E1 0%, #FFE8CC 50%, #FFDDB8 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* ============== HEADER ============== */
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 50%, #FFB84D 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 50px rgba(255, 107, 53, 0.4);
+            animation: slideInDown 0.6s ease-out;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.2), transparent);
+            pointer-events: none;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .lang-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .lang-btn {
+            padding: 10px 16px;
+            border: 2px solid white;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: #FF6B35;
+            border-color: #FF6B35;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ============== QUICK ACCESS ============== */
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quick-btn {
+            background: white;
+            border: 2px solid #FF6B35;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-btn:hover {
+            background: #FF6B35;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .quick-btn-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        /* ============== MAIN LAYOUT ============== */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* ============== SEARCH PANEL ============== */
+        .search-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .search-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #FFE8CC;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Padauk', 'Myanmar3', 'Segoe UI', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Padauk', 'Myanmar3', 'Segoe UI', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* ============== MAP CONTAINER ============== */
+        .map-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .mock-map {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(135deg, #E8F4F8 0%, #D4E9F7 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed #FFD60A;
+        }
+
+        .map-routes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.3;
+        }
+
+        .route-line {
+            position: absolute;
+            background: #FF6B35;
+        }
+
+        .map-station {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .map-station:hover {
+            transform: scale(1.2);
+        }
+
+        .map-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 12px;
+            z-index: 50;
+        }
+
+        /* ============== TABS ============== */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 12px 20px;
+            background: #f0f0f0;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.3s;
+            font-family: 'Padauk', 'Myanmar3', 'Segoe UI', sans-serif;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            border-color: #FFD60A;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ============== CARDS ============== */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            animation: slideInUp 0.5s ease-out;
+            transition: all 0.3s;
+            border-left: 4px solid #FF6B35;
+        }
+
+        .card:hover {
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #FF6B35;
+        }
+
+        .card-icon {
+            font-size: 28px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        /* ============== TRANSPORT CARD ============== */
+        .transport-card {
+            background: linear-gradient(135deg, #FFF5E1 0%, #FFE8CC 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #FF6B35;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transport-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .transport-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .transport-card.active {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            border-left-color: white;
+        }
+
+        .transport-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .transport-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: #FF6B35;
+        }
+
+        .transport-card.active .transport-name {
+            color: white;
+        }
+
+        .transport-badge {
+            font-size: 11px;
+            color: white;
+            font-weight: 700;
+            background: #FF6B35;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .transport-card.active .transport-badge {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .transport-info {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .transport-card.active .transport-info {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .transport-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .transport-info-icon {
+            min-width: 18px;
+            font-size: 14px;
+        }
+
+        .transport-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .transport-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-transform: uppercase;
+            flex: 1;
+        }
+
+        .transport-btn-primary {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .transport-btn-primary:hover {
+            background: #E55A2B;
+        }
+
+        .transport-btn-secondary {
+            background: white;
+            color: #FF6B35;
+            border: 2px solid #FF6B35;
+        }
+
+        .transport-btn-secondary:hover {
+            background: #FFF0E1;
+        }
+
+        .transport-card.active .transport-btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-color: white;
+        }
+
+        /* ============== ROUTE CARD ============== */
+        .route-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3B82F6;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .route-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .route-number {
+            display: inline-block;
+            background: #3B82F6;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .route-name {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .route-stations {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .station-stop {
+            padding: 8px 0;
+            border-bottom: 1px dotted #ddd;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .station-stop::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: #3B82F6;
+        }
+
+        /* ============== BADGE ============== */
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge-bts {
+            background: #00A0DF;
+            color: white;
+        }
+
+        .badge-mrt {
+            background: #2D9CDB;
+            color: white;
+        }
+
+        .badge-ats {
+            background: #D4527D;
+            color: white;
+        }
+
+        .badge-taxi {
+            background: #FFD700;
+            color: #333;
+        }
+
+        .badge-uber {
+            background: #000;
+            color: white;
+        }
+
+        .badge-grab {
+            background: #1DBF60;
+            color: white;
+        }
+
+        /* ============== INFO BOX ============== */
+        .info-box {
+            background: #FFF3E0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #F59E0B;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 12px;
+            color: #E65100;
+            line-height: 1.6;
+        }
+
+        .info-box-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .danger-box {
+            background: #FFEBEE;
+            border-left-color: #EF4444;
+            color: #C62828;
+        }
+
+        .success-box {
+            background: #E8F5E9;
+            border-left-color: #10B981;
+            color: #1B5E20;
+        }
+
+        /* ============== STATION LIST ============== */
+        .station-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .station-item {
+            background: linear-gradient(135deg, #FFF5E1 0%, #FFE8CC 100%);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .station-item:hover {
+            transform: translateX(5px);
+            border-color: #FF6B35;
+        }
+
+        .station-item.selected {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            border-color: #FFD60A;
+        }
+
+        .station-name {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .station-code {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        /* ============== RESPONSIVE ============== */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .search-panel {
+                position: static;
+            }
+
+            .mock-map {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 36px;
+                flex-direction: column;
+            }
+
+            .quick-access {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                width: 100%;
+                text-align: center;
+            }
+
+            .mock-map {
+                height: 300px;
+            }
+
+            .station-list {
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .quick-access {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .mock-map {
+                height: 250px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #FF6B35;
+            border-radius: 10px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ============== MODAL ============== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #FF6B35;
+            padding-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #FF6B35;
+        }
+
+        .modal-close:hover {
+            color: #E55A2B;
+        }
+
+        /* ============== ALERTS ============== */
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            animation: slideInRight 0.3s ease-out;
+            font-family: 'Padauk', 'Myanmar3', 'Segoe UI', sans-serif;
+            font-weight: 600;
+            max-width: 300px;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .alert.success {
+            border-left: 4px solid #10B981;
+            color: #059669;
+        }
+
+        .alert.warning {
+            border-left: 4px solid #F59E0B;
+            color: #D97706;
+        }
+
+        .alert.danger {
+            border-left: 4px solid #EF4444;
+            color: #DC2626;
+        }
+
+        .alert.info {
+            border-left: 4px solid #3B82F6;
+            color: #2563EB;
+        }
+
+        /* ============== PRICE TABLE ============== */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .price-table th,
+        .price-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #FFE8CC;
+            font-size: 12px;
+        }
+
+        .price-table th {
+            background: #FFE8CC;
+            font-weight: 700;
+            color: #FF6B35;
+        }
+
+        .price-table tr:hover {
+            background: #FFF5E1;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <h1>
+                <span style="font-size: 40px;">🚌</span>
+                Bangkok Transport
+            </h1>
+            <p id="headerSub">ဘန်ကောက်သယ်ယူမှုလမ်းညွှန်</p>
+            <p style="font-size: 13px; margin-top: 10px; opacity: 0.9;">🗺️ <span id="subText">BTS, MRT, Bus, Taxi, Grab, Uber - အထုံးအဖြဲ့လမ်းညွှန်</span></p>
+            <div class="lang-selector">
+                <button class="lang-btn active" onclick="setLanguage('my')" id="myBtn">MY</button>
+                <button class="lang-btn" onclick="setLanguage('en')" id="enBtn">EN</button>
+                <button class="lang-btn" onclick="setLanguage('th')" id="thBtn">TH</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- QUICK ACCESS -->
+        <div class="quick-access">
+            <div class="quick-btn" onclick="switchTab('bts')">
+                <div class="quick-btn-icon">🚆</div>
+                <div>BTS</div>
+            </div>
+            <div class="quick-btn" onclick="switchTab('mrt')">
+                <div class="quick-btn-icon">🚇</div>
+                <div>MRT</div>
+            </div>
+            <div class="quick-btn" onclick="switchTab('bus')">
+                <div class="quick-btn-icon">🚌</div>
+                <div>ဘက်စ်</div>
+            </div>
+            <div class="quick-btn" onclick="switchTab('taxi')">
+                <div class="quick-btn-icon">🚕</div>
+                <div>Taxi</div>
+            </div>
+            <div class="quick-btn" onclick="switchTab('grab')">
+                <div class="quick-btn-icon">🚗</div>
+                <div>Grab</div>
+            </div>
+            <div class="quick-btn" onclick="switchTab('route')">
+                <div class="quick-btn-icon">🗺️</div>
+                <div>လမ်းကြေး</div>
+            </div>
+        </div>
+
+        <!-- MAIN LAYOUT -->
+        <div class="main-layout">
+            <!-- SEARCH PANEL -->
+            <div class="search-panel">
+                <div class="search-title">
+                    <span>🔍</span>
+                    <span id="searchTitle">အခန်းကဏ္ဍရှာဖွေခြင်း</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="startLabel">စတင်ရန်နေရာ</label>
+                    <input type="text" class="form-input" id="startLocation" placeholder="သင်ယူဌာန">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="endLabel">ခုံကျည်းပြီးနောက်နေရာ</label>
+                    <input type="text" class="form-input" id="endLocation" placeholder="ပြီးအဆုံးနေရာ">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="transportLabel">သယ်ယူမှုနည်း</label>
+                    <select class="form-select" id="transportType" onchange="filterTransport()">
+                        <option value="">အားလုံး</option>
+                        <option value="bts">🚆 BTS</option>
+                        <option value="mrt">🚇 MRT</option>
+                        <option value="bus">🚌 ဘက်စ်</option>
+                        <option value="taxi">🚕 Taxi</option>
+                        <option value="grab">🚗 Grab</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary btn-block" onclick="searchRoute()">
+                    🔍 <span id="searchBtn">ရှာဖွေမည်</span>
+                </button>
+
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #FFE8CC;">
+                    <div style="font-size: 12px; font-weight: 700; color: #666; margin-bottom: 15px;">အများအပြင်များ</div>
+
+                    <div class="station-list" id="favoritesList"></div>
+                </div>
+            </div>
+
+            <!-- MAP & CONTENT -->
+            <div>
+                <!-- MAP -->
+                <div class="map-container">
+                    <div class="mock-map" id="mockMap">
+                        <div class="map-routes" id="mapRoutes"></div>
+                        <div class="map-info" id="mapInfo">
+                            🗺️ ဘန်ကောက်စျေးကြီးမြို့မြေပုံ (Offline)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NAVIGATION TABS -->
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="switchTab('bts')">🚆 BTS <span id="btsTab">အရေး</span></button>
+                    <button class="nav-tab" onclick="switchTab('mrt')">🚇 MRT <span id="mrtTab">အရေး</span></button>
+                    <button class="nav-tab" onclick="switchTab('bus')">🚌 <span id="busTab">ဘက်စ်အရေး</span></button>
+                    <button class="nav-tab" onclick="switchTab('taxi')">🚕 <span id="taxiTab">Taxi အချက်</span></button>
+                    <button class="nav-tab" onclick="switchTab('grab')">🚗 <span id="grabTab">Grab အချက်</span></button>
+                    <button class="nav-tab" onclick="switchTab('route')">🗺️ <span id="routeTab">လမ်းကြေး</span></button>
+                    <button class="nav-tab" onclick="switchTab('info')">ℹ️ <span id="infoTab">အချက်အလက်</span></button>
+                </div>
+
+                <!-- BTS TAB -->
+                <div id="bts" class="tab-content active">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🚆</div>
+                            <div class="card-title" id="btsTitle">BTS (ဘီတီအက်စ်)</div>
+                        </div>
+
+                        <div class="info-box success-box">
+                            <div class="info-box-icon">✓</div>
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px;">BTS ကြက်ခြင်း</div>
+                                <div>• အမြန်သယ်ယူမှု, အစိုးရမှီခိုသည့်စနစ်<br>• ၁ လ - ၁၅ ဘတ်အခြေခံ<br>• ၆:၀၀ - ၀:၀၀ (မြန်မာစံတစ်နေ့အလိုတွင်)<br>• တစ်ခါတစ်ရံ အဝင်တူခြင်း</div>
+                            </div>
+                        </div>
+
+                        <div id="btsList"></div>
+                    </div>
+                </div>
+
+                <!-- MRT TAB -->
+                <div id="mrt" class="tab-content hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🚇</div>
+                            <div class="card-title" id="mrtTitle">MRT (မြေအောက်ရထား)</div>
+                        </div>
+
+                        <div class="info-box success-box">
+                            <div class="info-box-icon">✓</div>
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px;">MRT ကြက်ခြင်း</div>
+                                <div>• မြေအောက်ရထားစနစ်<br>• ၁ လ - ၁၅ ဘတ်အခြေခံ<br>• ၆:၀၀ - ၀:၀၀<br>• တည်သည့်အချိန်တွင် လျင်လျင်ချက်ချင်း</div>
+                            </div>
+                        </div>
+
+                        <div id="mrtList"></div>
+                    </div>
+                </div>
+
+                <!-- BUS TAB -->
+                <div id="bus" class="tab-content hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🚌</div>
+                            <div class="card-title" id="busTitle">ဘက်စ်ကားများ</div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-box-icon">ℹ️</div>
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px;">ဘက်စ်နံပါတ်များ</div>
+                                <div>• အများအပြင်များ - ၆ ဘတ်နှင့် အတူ<br>• ပြည့်စုံလုံရုံ - ၈ ဘတ်နှင့် အတူ<br>• အင်္ဂလိပ်စာရွေးချယ်ခြင်း - ၉ - ၁၀ ဘတ်နှင့် အတူ<br>• အချိန်အစီစဥ် - ၅:၀၀ - ၂၃:၀၀</div>
+                            </div>
+                        </div>
+
+                        <div id="busList"></div>
+                    </div>
+                </div>
+
+                <!-- TAXI TAB -->
+                <div id="taxi" class="tab-content hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🚕</div>
+                            <div class="card-title" id="taxiTitle">Taxi (အင်္ဂလိပ်စကား)</div>
+                        </div>
+
+                        <div class="info-box success-box">
+                            <div class="info-box-icon">✓</div>
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px;">Taxi ကြက်ခြင်း</div>
+                                <div>• အီမီတာစနစ် - စတင် ၣ ၅ ဘတ် <br>• နောက်ဆက်တွဲ km - ၅.၅ ဘတ်/km<br>• အချိန်အခြေခံ - ၂ ဘတ်/မိနစ်<br>• အရုပ်ဆောင်းချက် - ၅၀ ဘတ် (ည၏အချိန်)<br>• ၂၄/၇ အဖွင့်</div>
+                            </div>
+                        </div>
+
+                        <div id="taxiList"></div>
+                    </div>
+                </div>
+
+                <!-- GRAB TAB -->
+                <div id="grab" class="tab-content hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🚗</div>
+                            <div class="card-title" id="grabTitle">Grab (ဒီဂျီတယ်ကား)</div>
+                        </div>
+
+                        <div class="info-box success-box">
+                            <div class="info-box-icon">✓</div>
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px;">Grab ကြက်ခြင်း</div>
+                                <div>• မိုဘိုင်းအပ်လီကေးအလို<br>• အီမီတာစနစ် - စတင် ၣ ၃ ဘတ်<br>• နောက်ဆက်တွဲ km - ၆-၇ ဘတ်/km<br>• အချိန်အခြေခံ - ၂ ဘတ်/မိနစ်<br>• ၂၄/၇ အဖွင့်</div>
+                            </div>
+                        </div>
+
+                        <div id="grabList"></div>
+                    </div>
+                </div>
+
+                <!-- ROUTE TAB -->
+                <div id="route" class="tab-content hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🗺️</div>
+                            <div class="card-title" id="routeTitle">အများဆုံးအရေးအမိန်လမ်းကြေးများ</div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-box-icon">📍</div>
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px;">လမ်းကြေးများ</div>
+                                <div>အများအသုံးပြုလုပ်သည့် လမ်းကြေးများ နှင့် သယ်ယူမှုစနစ်</div>
+                            </div>
+                        </div>
+
+                        <div id="routeList"></div>
+                    </div>
+                </div>
+
+                <!-- INFO TAB -->
+                <div id="info" class="tab-content hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">ℹ️</div>
+                            <div class="card-title" id="infoTitle">အချက်အလက်</div>
+                        </div>
+
+                        <h3 style="font-size: 16px; font-weight: 800; color: #1a1a2e; margin: 20px 0 15px 0;">📞 အရေးပေလ်အဆက်အသွယ်</h3>
+
+                        <div class="transport-card">
+                            <div class="transport-header">
+                                <div class="transport-name">ကမ္ဘာ့ကမ္ဘာ့ဆက်သွယ်ရန်</div>
+                            </div>
+                            <div class="transport-info">
+                                <div class="transport-info-item">
+                                    <div class="transport-info-icon">📞</div>
+                                    <div>
+                                        <strong>BTS ဆက်သွယ်ရန်:</strong> 1349 (ထိုင်း)<br>
+                                        <strong>MRT ဆက်သွယ်ရန်:</strong> 1681 (ထိုင်း)<br>
+                                        <strong>Bus ဆက်သွယ်ရန်:</strong> 1159 (ထိုင်း)<br>
+                                        <strong>Grab ဆက်သွယ်ရန်:</strong> App အလို
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 style="font-size: 16px; font-weight: 800; color: #1a1a2e; margin: 20px 0 15px 0;">💡 အကျိုးအကြေးအိုင်</h3>
+
+                        <div class="info-box">
+                            <div class="info-box-icon">✓</div>
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px;">သယ်ယူမှုကြောင်း အကျိုးများ</div>
+                                <div>
+                                    • အများ - BTS/MRT သုံးသည့်အခါ အမြန်ဆုံး<br>
+                                    • အကုန်အလျော့ - ဘက်စ်သုံးသည့်အခါ အစားအနည်းဆုံး<br>
+                                    • အဆင်ပြေ - Grab သုံးသည့်အခါ အဆင်ပြေဆုံး<br>
+                                    • အယုံကြည် - Taxi သုံးသည့်အခါ အယုံကြည်အရှိဆုံး
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box danger-box">
+                            <div class="info-box-icon">⚠️</div>
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 5px;">သတိအိုင်</div>
+                                <div>
+                                    • အိမ်နီးကပ်သည့်အခါ Taxi မသုံးပါစို့<br>
+                                    • ည၏အချိန်တွင် အချီလူတွေ ကိုယ်ဂီယာရှိလည်းရှိ<br>
+                                    • အုံးမုံခြင်းတွင် ခြင်းစီစီလုံးရုံ အားလုံးအတွင်း မီတာ ဖွင့်ထားခြင်း
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: #999; padding: 30px; margin-top: 30px; font-size: 12px;">
+            <p>🚌 Bangkok Transport Navigation | Offline Guide 2024</p>
+            <p id="disclaimerText">ℹ️ ဤလမ်းညွှန်သည် အွန်လိုင်းမဲ့ အခန်းကဏ္ဍအချက်အလက်များကို ပြည့်စုံစွာ ပေးစွမ်းပါသည်။</p>
+        </div>
+    </div>
+
+    <script>
+        // ============== TRANSLATIONS ==============
+        const translations = {
+            my: {
+                headerSub: 'ဘန်ကောက်သယ်ယူမှုလမ်းညွှန်',
+                subText: 'BTS, MRT, Bus, Taxi, Grab, Uber - အထုံးအဖြဲ့လမ်းညွှန်',
+                disclaimerText: 'ဤလမ်းညွှန်သည် အွန်လိုင်းမဲ့ အခန်းကဏ္ဍအချက်အလက်များကို ပြည့်စုံစွာ ပေးစွမ်းပါသည်။',
+                searchTitle: 'အခန်းကဏ္ဍရှာဖွေခြင်း',
+                startLabel: 'စတင်ရန်နေရာ',
+                endLabel: 'ခုံကျည်းပြီးနောက်နေရာ',
+                transportLabel: 'သယ်ယူမှုနည်း',
+                searchBtn: 'ရှာဖွေမည်'
+            },
+            en: {
+                headerSub: 'Bangkok Transport Guide',
+                subText: 'BTS, MRT, Bus, Taxi, Grab, Uber - Complete Navigation',
+                disclaimerText: 'This guide provides complete offline transportation information.',
+                searchTitle: 'Search Route',
+                startLabel: 'Starting Point',
+                endLabel: 'Destination',
+                transportLabel: 'Transport Type',
+                searchBtn: 'Search'
+            },
+            th: {
+                headerSub: 'คู่มือการขนส่งกรุงเทพ',
+                subText: 'BTS, MRT, Bus, Taxi, Grab, Uber - นำทางที่สมบูรณ์',
+                disclaimerText: 'คู่มือนี้ให้ข้อมูลการขนส่งแบบออฟไลน์ที่สมบูรณ์',
+                searchTitle: 'ค้นหาเส้นทาง',
+                startLabel: 'จุดเริ่มต้น',
+                endLabel: 'ปลายทาง',
+                transportLabel: 'ประเภทการขนส่ง',
+                searchBtn: 'ค้นหา'
+            }
+        };
+
+        // ============== DATABASE ==============
+        const btsRoutes = [
+            {
+                id: 'S1',
+                name: 'Silom Line',
+                color: '#00A0DF',
+                stations: ['Taksin', 'Saphan Taksin', 'Krung Thonburi', 'Wongwian Yai', 'Talat Phlu', 'Wutthakat', 'Bang Wa', 'Bang Phlat', 'Saphan Khwai', 'Ratchathewi', 'Chit Lom', 'Sala Daeng', 'Chong Nonsi', 'Saint Louis', 'Surasak', 'Saphan Taksin'],
+                fare: '၁၅-၄၀ ဘတ်'
+            },
+            {
+                id: 'S2',
+                name: 'Sukhumvit Line',
+                color: '#0FA500',
+                stations: ['Mo Chit', 'Saphan Kwai', 'Ari', 'Sanam Pao', 'Victory Monument', 'Phaya Thai', 'Ratchathewi', 'Phetchburi', 'Nana', 'Asok', 'Phrom Phong', 'Thong Lor', 'Ekamai', 'Phra Khanong', 'Udomsuk', 'Bang Chak', 'Punnawithi', 'Hua Mark', 'Bang Na', 'Senanikom', 'Ramintra'],
+                fare: '၁၅-၅၀ ဘတ်'
+            },
+            {
+                id: 'S3',
+                name: 'Khlong Toei Line',
+                color: '#FF6B35',
+                stations: ['Rama 9', 'Ratchadamri', 'Lumphini', 'Khlong Toei', 'Queen Sirikit', 'Hua Lamphong'],
+                fare: '၁၅-၃၀ ဘတ်'
+            }
+        ];
+
+        const mrtRoutes = [
+            {
+                id: 'M1',
+                name: 'Blue Line',
+                color: '#2D9CDB',
+                stations: ['Hua Lamphong', 'Sam Yot', 'Dinso', 'Wat Mangkon', 'Chiang Mai', 'Tao Poon', 'Bang Bua', 'Yaowarat', 'Hualamphong', 'Sam Yan', 'Silom', 'Lumpini', 'Rama 9', 'Phetchburi', 'Sukhumvit', 'Queen Sirikit'],
+                fare: '၁၆-၄၂ ဘတ်'
+            },
+            {
+                id: 'M2',
+                name: 'Purple Line',
+                color: '#9E2199',
+                stations: ['Khlong Bang Phai', 'Bang Yai', 'Bang Bua', 'Tao Poon', 'Bang Pho', 'Bang Bua', 'Ratburana'],
+                fare: '၁၆-၃၇ ဘတ်'
+            }
+        ];
+
+        const busRoutes = [
+            {
+                id: 'B1',
+                name: 'Route 1',
+                number: '1',
+                stations: ['Victory Monument', 'Chit Lom', 'Siam', 'Silom', 'Lumpini', 'Rama 4'],
+                fare: '၆-၁၅ ဘတ်'
+            },
+            {
+                id: 'B2',
+                name: 'Route 2',
+                number: '2',
+                stations: ['Mo Chit', 'Saphan Kwai', 'Pratunam', 'Victory Monument', 'Phaya Thai'],
+                fare: '၆-၁၅ ဘတ်'
+            },
+            {
+                id: 'B3',
+                name: 'Route 3 AC',
+                number: '3',
+                stations: ['Don Mueang', 'Victory Monument', 'Central World', 'Siam', 'Lumpini', 'Rama 4'],
+                fare: '၈-၂၀ ဘတ်'
+            }
+        ];
+
+        const majorRoutes = [
+            {
+                name: 'Victory Monument ➜ Siam',
+                transport: ['BTS', 'Bus'],
+                time: '၁၅ မိနစ်',
+                cost: '၁၅-၃၀ ဘတ်',
+                description: 'အများအပြင်များ အနီးကပ်ဆုံး လမ်းကြေး'
+            },
+            {
+                name: 'Don Mueang Airport ➜ Siam',
+                transport: ['Express Bus', 'Taxi', 'Grab'],
+                time: '၄၀-၆၀ မိနစ်',
+                cost: '၅၀-၁၅၀ ဘတ်',
+                description: 'အကုန်အလျော့ အစီစဥ်နည်းလမ်း'
+            },
+            {
+                name: 'BTS Central World ➜ MRT Rama 9',
+                transport: ['BTS', 'MRT'],
+                time: '၂၀ မိနစ်',
+                cost: '၂၀-၅၀ ဘတ်',
+                description: 'အမြန်သုံးခုံဖြစ်သည်'
+            },
+            {
+                name: 'Silom ➜ Sukhumvit',
+                transport: ['BTS', 'Taxi', 'Grab'],
+                time: '၁၀-၃၀ မိနစ်',
+                cost: '၂၀-၆၀ ဘတ်',
+                description: 'မြို့ကြီးအခန်းဆင့် လမ်းကြေး'
+            },
+            {
+                name: 'Pratunam Market ➜ Chatuchak Market',
+                transport: ['Bus', 'Taxi', 'Grab'],
+                time: '၃၀-၄၀ မိနစ်',
+                cost: '၂၀-၈၀ ဘတ်',
+                description: 'ကုန်အေဌာန စူးစမ်းခြင်းအတွက်'
+            }
+        ];
+
+        // ============== STATE ==============
+        let state = {
+            currentLanguage: 'my',
+            currentTab: 'bts',
+            favorites: []
+        };
+
+        // ============== INITIALIZATION ==============
+        function init() {
+            setLanguage('my');
+            renderBTS();
+            renderMRT();
+            renderBus();
+            renderTaxi();
+            renderGrab();
+            renderRoutes();
+        }
+
+        // ============== LANGUAGE ==============
+        function setLanguage(lang) {
+            state.currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            if (lang === 'my') document.getElementById('myBtn').classList.add('active');
+            else if (lang === 'en') document.getElementById('enBtn').classList.add('active');
+            else document.getElementById('thBtn').classList.add('active');
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('headerSub').textContent = translations[state.currentLanguage].headerSub || translations['en'].headerSub;
+            document.getElementById('subText').textContent = translations[state.currentLanguage].subText || translations['en'].subText;
+            document.getElementById('disclaimerText').textContent = translations[state.currentLanguage].disclaimerText || translations['en'].disclaimerText;
+            document.getElementById('searchTitle').textContent = translations[state.currentLanguage].searchTitle || translations['en'].searchTitle;
+            document.getElementById('startLabel').textContent = translations[state.currentLanguage].startLabel || translations['en'].startLabel;
+            document.getElementById('endLabel').textContent = translations[state.currentLanguage].endLabel || translations['en'].endLabel;
+            document.getElementById('transportLabel').textContent = translations[state.currentLanguage].transportLabel || translations['en'].transportLabel;
+            document.getElementById('searchBtn').textContent = translations[state.currentLanguage].searchBtn || translations['en'].searchBtn;
+        }
+
+        // ============== TAB SWITCHING ==============
+        function switchTab(tab) {
+            state.currentTab = tab;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tab).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.nav-tab').classList.add('active');
+        }
+
+        // ============== RENDER BTS ==============
+        function renderBTS() {
+            let html = '';
+            btsRoutes.forEach(route => {
+                html += `
+                    <div class="route-card">
+                        <div class="route-number" style="background: ${route.color};">${route.id}</div>
+                        <div class="route-name">${route.name}</div>
+                        <div class="info-box">
+                            <div class="info-box-icon">💰</div>
+                            <div>ခရေးခွင့် - ${route.fare}</div>
+                        </div>
+                        <div class="route-stations">
+                            <strong>လမ်းကြေးများ:</strong><br>
+                            ${route.stations.slice(0, 8).map(s => `<div class="station-stop">${s}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('btsList').innerHTML = html;
+        }
+
+        function renderMRT() {
+            let html = '';
+            mrtRoutes.forEach(route => {
+                html += `
+                    <div class="route-card">
+                        <div class="route-number" style="background: ${route.color};">${route.id}</div>
+                        <div class="route-name">${route.name}</div>
+                        <div class="info-box">
+                            <div class="info-box-icon">💰</div>
+                            <div>ခရေးခွင့် - ${route.fare}</div>
+                        </div>
+                        <div class="route-stations">
+                            <strong>လမ်းကြေးများ:</strong><br>
+                            ${route.stations.slice(0, 8).map(s => `<div class="station-stop">${s}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('mrtList').innerHTML = html;
+        }
+
+        function renderBus() {
+            let html = '';
+            busRoutes.forEach(route => {
+                html += `
+                    <div class="route-card">
+                        <div class="route-number">ဘက်စ် #${route.number}</div>
+                        <div class="route-name">${route.name}</div>
+                        <div class="info-box">
+                            <div class="info-box-icon">💰</div>
+                            <div>ခရေးခွင့် - ${route.fare}</div>
+                        </div>
+                        <div class="route-stations">
+                            <strong>လမ်းကြေးများ:</strong><br>
+                            ${route.stations.map(s => `<div class="station-stop">${s}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('busList').innerHTML = html;
+        }
+
+        function renderTaxi() {
+            let html = `
+                <div class="transport-card">
+                    <div class="transport-header">
+                        <div class="transport-name">ဘန်ကောက် Taxi</div>
+                        <div class="transport-badge">၂၄/၇</div>
+                    </div>
+                    <div class="transport-info">
+                        <div class="transport-info-item">
+                            <div class="transport-info-icon">📍</div>
+                            <div><strong>အင်္ဂလိပ်စကား ခေါ်နည်း:</strong> ဖုန်း ၂၅၃-၉၉၉၉</div>
+                        </div>
+                        <div class="transport-info-item">
+                            <div class="transport-info-icon">💰</div>
+                            <div><strong>ခွဲခြားခြင်း:</strong> စတင် ၅ ဘတ် + ၅.၅ ဘတ်/km</div>
+                        </div>
+                        <div class="transport-info-item">
+                            <div class="transport-info-icon">⏱️</div>
+                            <div><strong>အချိန်အခြေခံ:</strong> ၂ ဘတ်/မိနစ်</div>
+                        </div>
+                        <div class="transport-info-item">
+                            <div class="transport-info-icon">🌙</div>
+                            <div><strong>ည၏အခွင့်အရုပ်:</strong> ၅၀ ဘတ်</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('taxiList').innerHTML = html;
+        }
+
+        function renderGrab() {
+            let html = `
+                <div class="transport-card">
+                    <div class="transport-header">
+                        <div class="transport-name">Grab (ဒီဂျီတယ်ကား)</div>
+                        <div class="transport-badge">အပ်ပ်</div>
+                    </div>
+                    <div class="transport-info">
+                        <div class="transport-info-item">
+                            <div class="transport-info-icon">📱</div>
+                            <div><strong>အပ်ပ်ခေါ်နည်း:</strong> Grab အပ်ပ်တွင် ကိုယ်ယူခြင်း</div>
+                        </div>
+                        <div class="transport-info-item">
+                            <div class="transport-info-icon">💰</div>
+                            <div><strong>ခွဲခြားခြင်း:</strong> စတင် ၃ ဘတ် + ၆-၇ ဘတ်/km</div>
+                        </div>
+                        <div class="transport-info-item">
+                            <div class="transport-info-icon">⭐</div>
+                            <div><strong>အဆင့်အဆန်း:</strong> မောင်းသူသည် အဆင့်အဆန်းပြောခြင်း</div>
+                        </div>
+                        <div class="transport-info-item">
+                            <div class="transport-info-icon">🔐</div>
+                            <div><strong>အုံးမုံခြင်း:</strong> GPS ခြင်းငြင်း အဆင့်</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('grabList').innerHTML = html;
+        }
+
+        function renderRoutes() {
+            let html = '';
+            majorRoutes.forEach(route => {
+                html += `
+                    <div class="route-card">
+                        <div class="route-name">${route.name}</div>
+                        <div class="info-box">
+                            <div class="info-box-icon">🚌</div>
+                            <div>
+                                <div><strong>သယ်ယူမှုနည်း:</strong> ${route.transport.join(', ')}</div>
+                                <div><strong>အချိန်:</strong> ${route.time}</div>
+                                <div><strong>အကုန်အစရိုး:</strong> ${route.cost}</div>
+                            </div>
+                        </div>
+                        <div class="route-stations">
+                            <strong>💡 အကျိုးများ:</strong><br>
+                            ${route.description}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('routeList').innerHTML = html;
+        }
+
+        // ============== SEARCH & FILTER ==============
+        function searchRoute() {
+            const start = document.getElementById('startLocation').value;
+            const end = document.getElementById('endLocation').value;
+            const type = document.getElementById('transportType').value;
+
+            if (!start || !end) {
+                showAlert('🔴 စတင်ရန်နေရာနှင့် ခုံကျည်းပြီးနောက်နေရာကို ဖြည့်စွက်ပါ', 'warning');
+                return;
+            }
+
+            showAlert(`✓ ${start} မှ ${end} သို့ လမ်းကြေးများ ရှာဖွေခြင်း...`, 'success');
+            
+            if (type) {
+                switchTab(type);
+            }
+        }
+
+        function filterTransport() {
+            const type = document.getElementById('transportType').value;
+            if (type) {
+                switchTab(type);
+            }
+        }
+
+        // ============== UTILITIES ==============
+        function showAlert(message, type = 'info') {
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.innerHTML = `<span style="font-size: 18px;">${
+                type === 'success' ? '✓' :
+                type === 'warning' ? '⚠️' :
+                type === 'danger' ? '🚨' :
+                'ℹ️'
+            }</span><span>${message}</span>`;
+            document.body.appendChild(alert);
+            setTimeout(() => alert.remove(), 4000);
+        }
+
+        // ============== INITIALIZATION ==============
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
+```
+
+
+<budget:token_budget>200000</budget:token_budget>
